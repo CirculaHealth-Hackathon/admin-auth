@@ -5,6 +5,7 @@ import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Apple, X as XIcon } from "lucide-react";
+import { useRouter } from "next/navigation"; // Import useRouter
 
 import { Button } from "@/components/ui/button";
 import {
@@ -22,12 +23,19 @@ import { GoogleIcon } from "@/components/icons/google-icon";
 import { signInAction, signInWithAppleAction, signInWithGoogleAction, signInWithXAction } from "@/app/actions";
 import Link from "next/link";
 
+interface SignInActionResult {
+  success: boolean;
+  message: string;
+  redirectTo?: string;
+}
+
 export default function SignInForm() {
   const { toast } = useToast();
+  const router = useRouter(); // Initialize useRouter
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const form = useForm<AuthFormValues>({
-    resolver: zodResolver(AuthSchema), // Reusing AuthSchema as it fits email/password
+    resolver: zodResolver(AuthSchema), 
     defaultValues: {
       email: "",
       password: "",
@@ -36,7 +44,7 @@ export default function SignInForm() {
 
   async function onSubmit(values: AuthFormValues) {
     setIsSubmitting(true);
-    const result = await signInAction(values);
+    const result: SignInActionResult = await signInAction(values);
     setIsSubmitting(false);
 
     if (result.success) {
@@ -44,8 +52,9 @@ export default function SignInForm() {
         title: "Success",
         description: result.message,
       });
-      // Potentially redirect user here
-      // form.reset();
+      if (result.redirectTo) {
+        router.push(result.redirectTo); // Redirect on success
+      }
     } else {
       toast({
         title: "Error",
@@ -55,7 +64,7 @@ export default function SignInForm() {
     }
   }
 
-  async function handleSocialLogin(action: () => Promise<{success: boolean, message: string}>) {
+  async function handleSocialLogin(action: () => Promise<SignInActionResult>) {
     setIsSubmitting(true);
     const result = await action();
     setIsSubmitting(false);
@@ -64,6 +73,9 @@ export default function SignInForm() {
         title: "Redirecting...",
         description: result.message,
       });
+      if (result.redirectTo) { // Also handle redirect for social logins if applicable
+        router.push(result.redirectTo);
+      }
     } else {
       toast({
         title: "Error",

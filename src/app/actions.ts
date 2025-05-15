@@ -41,7 +41,7 @@ export async function signInAction(values: AuthFormValues) {
 
   // Simulate success/error
   if (values.email === "test@example.com" && values.password === "password") {
-    return { success: true, message: "Signed in successfully!" };
+    return { success: true, message: "Signed in successfully!", redirectTo: "/dashboard" };
   }
   return { success: false, message: "Invalid email or password. Please try again." };
 }
@@ -49,17 +49,20 @@ export async function signInAction(values: AuthFormValues) {
 export async function signInWithAppleAction() {
   console.log("Attempting Sign in with Apple");
   await new Promise(resolve => setTimeout(resolve, 500));
+  // In a real app, this would also set redirectTo on success
   return { success: true, message: "Initiating Apple sign-in..." };
 }
 
 export async function signInWithGoogleAction() {
   console.log("Attempting Sign in with Google");
   await new Promise(resolve => setTimeout(resolve, 500));
+  // In a real app, this would also set redirectTo on success
   return { success: true, message: "Initiating Google sign-in..." };
 }
 
 export async function signInWithXAction() {
   console.log("Attempting Sign in with X");
   await new Promise(resolve => setTimeout(resolve, 500));
+  // In a real app, this would also set redirectTo on success
   return { success: true, message: "Initiating X sign-in..." };
 }

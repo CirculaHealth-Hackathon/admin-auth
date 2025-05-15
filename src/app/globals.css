@@ -22,7 +22,7 @@ body {
     --muted-foreground: 0 0% 45.1%; /* Dark grey for text like "ADMIN" */
     --accent: 207 78% 67%; /* Lighter Blue #6CB2EB */
     --accent-foreground: 0 0% 9%; /* Dark text for accent elements */
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84.2% 60.2%; /* Red */
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 89.8%;
     --input: 0 0% 89.8%;
@@ -57,7 +57,7 @@ body {
     --muted-foreground: 0 0% 63.9%;
     --accent: 207 78% 67%; /* Lighter Blue #6CB2EB */
     --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 62.8% 30.6%; /* Red */
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
