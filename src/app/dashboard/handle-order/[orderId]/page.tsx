@@ -8,7 +8,7 @@ import * as React from "react";
 import { ArrowLeft } from 'lucide-react';
 import Logo from '@/components/auth/logo';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card'; // CardHeader and CardTitle removed as they are not used for this layout
+import { Card, CardContent } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -25,19 +25,12 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
 
-// export const metadata: Metadata = { // Metadata needs to be defined in a server component or a generateMetadata function
-//   title: 'Blood Order Details - Circula',
-//   description: 'View and manage a specific blood order request.',
-// };
-// For dynamic metadata with client components, you'd use generateMetadata
-
 interface HandleOrderPageProps {
   params: {
     orderId: string;
   };
 }
 
-// Mock data based on the image
 const mockOrderData = {
   user: "Sarah Taylor",
   bloodType: "A+",
@@ -49,18 +42,14 @@ const mockOrderData = {
 };
 
 export default function HandleOrderPage({ params }: HandleOrderPageProps) {
-  const { orderId } = params; // orderId is available for future data fetching
+  const { orderId } = params;
   const router = useRouter();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
-  // Add state for form fields if we need to collect them
-  // For now, the submit action is simple
 
   const handleSubmitConfirm = async () => {
     setIsSubmitting(true);
-    // In a real app, you would gather form data and send it to a server action here
     console.log("Order submission confirmed for orderId:", orderId);
-    // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
 
     toast({
@@ -68,22 +57,20 @@ export default function HandleOrderPage({ params }: HandleOrderPageProps) {
       description: "Order details submitted successfully.",
     });
     setIsSubmitting(false);
-    router.push('/dashboard'); // Redirect to dashboard after successful submission
+    router.push('/dashboard/my-requests'); // Redirect to My Request Handling page
   };
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between px-4 md:px-6">
           <Logo />
           <Button variant="outline" asChild>
-            <Link href="/dashboard">Go to My Request Handling</Link>
+            <Link href="/dashboard/my-requests">Go to My Request Handling</Link>
           </Button>
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="flex-1 container mx-auto py-8 px-4 md:px-6">
         <div className="mb-6">
             <Button variant="outline" asChild className="mb-4">
@@ -99,7 +86,6 @@ export default function HandleOrderPage({ params }: HandleOrderPageProps) {
 
         <Card className="max-w-2xl mx-auto shadow-lg rounded-lg border bg-card text-card-foreground">
           <CardContent className="p-6 space-y-6">
-            {/* Order Details Section */}
             <div className="grid grid-cols-2 gap-x-6 gap-y-4">
               <div>
                 <Label htmlFor="user" className="text-sm font-medium text-muted-foreground">User</Label>
@@ -133,7 +119,6 @@ export default function HandleOrderPage({ params }: HandleOrderPageProps) {
 
             <hr className="my-6 border-border" />
 
-            {/* Status Checkboxes and Inputs Section */}
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
                 <Checkbox id="orderHandled" defaultChecked className="h-5 w-5" />
@@ -192,7 +177,6 @@ export default function HandleOrderPage({ params }: HandleOrderPageProps) {
           </CardContent>
         </Card>
       </main>
-       {/* Footer */}
       <footer className="py-6 md:px-8 md:py-0 border-t mt-auto bg-background">
         <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
           <p className="text-sm text-muted-foreground">
@@ -203,12 +187,3 @@ export default function HandleOrderPage({ params }: HandleOrderPageProps) {
     </div>
   );
 }
-
-// For dynamic metadata with client components, you can export a generateMetadata function
-// if you need to access params. Example:
-// export async function generateMetadata({ params }: HandleOrderPageProps): Promise<Metadata> {
-//   return {
-//     title: `Order ${params.orderId} - Circula`,
-//     description: `Manage blood order request ${params.orderId}.`,
-//   };
-// }

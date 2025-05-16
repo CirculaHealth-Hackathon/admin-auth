@@ -1,4 +1,5 @@
 
+import Link from "next/link"; // Import Link
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
@@ -11,14 +12,16 @@ export default function DashboardPage() {
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-14 items-center">
           <div className="mr-4 hidden md:flex">
-            <a className="mr-6 flex items-center space-x-2" href="/dashboard">
+            <Link className="mr-6 flex items-center space-x-2" href="/dashboard">
               <span className="hidden font-bold sm:inline-block text-lg">
                 CIRCULA
               </span>
-            </a>
+            </Link>
           </div>
           <div className="flex flex-1 items-center justify-end space-x-2">
-            <Button variant="outline">Go to My Active Orders</Button>
+            <Button variant="outline" asChild>
+              <Link href="/dashboard/my-requests">My Request Handling</Link>
+            </Button>
           </div>
         </div>
       </header>
@@ -27,9 +30,9 @@ export default function DashboardPage() {
       <main className="flex-1 container py-8">
         <section className="space-y-6 mb-12">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-center">
-            Circulating Blood to <span className="text-orange-500">Those</span>
+            Circulating Blood to <span className="text-primary">Those</span> {/* Updated to use primary color */}
             <br />
-            Who <span className="text-orange-500">Need It Most</span>
+            Who <span className="text-primary">Need It Most</span> {/* Updated to use primary color */}
           </h1>
           <p className="text-lg text-muted-foreground text-center">
             Help ensure a steady flow of life-saving blood for those who need it
@@ -43,7 +46,7 @@ export default function DashboardPage() {
                 className="w-full pl-10"
               />
             </div>
-            <Button type="submit" className="bg-primary hover:bg-primary/90">Search</Button>
+            <Button type="submit">Search</Button> {/* Removed custom bg color to use theme */}
           </div>
         </section>
 
@@ -52,8 +55,8 @@ export default function DashboardPage() {
         </section>
       </main>
 
-      {/* Footer (optional) */}
-      <footer className="py-6 md:px-8 md:py-0 border-t">
+      {/* Footer */}
+      <footer className="py-6 md:px-8 md:py-0 border-t mt-auto bg-background">
         <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
           <p className="text-sm text-muted-foreground">
             &copy; {new Date().getFullYear()} Circula. All rights reserved.
