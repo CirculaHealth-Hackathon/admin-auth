@@ -1,5 +1,4 @@
 
-import Image from 'next/image';
 import Link from 'next/link';
 import AuthForm from '@/components/auth/auth-form';
 import Logo from '@/components/auth/logo';
@@ -25,17 +24,8 @@ export default function AuthPage() {
         </div>
       </div>
 
-      {/* Image Section (Right on Desktop, Top on Mobile) */}
-      <div className="w-full lg:w-1/2 h-64 lg:h-screen relative order-1 lg:order-2 overflow-hidden">
-        <Image
-          src="/images/auth-background-dots.png"
-          alt="Decorative background image with red dots for authentication page"
-          layout="fill"
-          objectFit="cover"
-          className="rounded-none lg:rounded-none animate-slow-pan"
-          priority
-          data-ai-hint="red dots pattern"
-        />
+      {/* Animated Background Section (Right on Desktop, Top on Mobile) */}
+      <div className="w-full lg:w-1/2 h-64 lg:h-screen relative order-1 lg:order-2 overflow-hidden bg-gradient-to-r from-primary via-blue-700 to-blue-900 bg-[length:400%_400%] animate-animated-gradient">
         <div className="absolute inset-0 bg-black/30"></div>
         <div className="absolute bottom-8 left-8 text-white text-3xl md:text-4xl font-medium leading-tight">
           <p>Circulating blood to</p>
