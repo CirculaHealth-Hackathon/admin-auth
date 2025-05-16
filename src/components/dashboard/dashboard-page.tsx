@@ -1,9 +1,10 @@
 
-import Link from "next/link"; // Import Link
+import Link from "next/link"; 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import BloodOrderTable from "./blood-order-table";
+import Logo from "@/components/auth/logo"; // Import the Logo component
 
 export default function DashboardPage() {
   return (
@@ -13,9 +14,7 @@ export default function DashboardPage() {
         <div className="container flex h-14 items-center">
           <div className="mr-4 hidden md:flex">
             <Link className="mr-6 flex items-center space-x-2" href="/dashboard">
-              <span className="hidden font-bold sm:inline-block text-lg">
-                CIRCULA
-              </span>
+              <Logo /> {/* Use the Logo component here */}
             </Link>
           </div>
           <div className="flex flex-1 items-center justify-end space-x-2">
@@ -30,9 +29,9 @@ export default function DashboardPage() {
       <main className="flex-1 container py-8">
         <section className="space-y-6 mb-12">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-center">
-            Circulating Blood to <span className="text-primary">Those</span> {/* Updated to use primary color */}
+            Circulating Blood to <span className="text-primary">Those</span>
             <br />
-            Who <span className="text-primary">Need It Most</span> {/* Updated to use primary color */}
+            Who <span className="text-primary">Need It Most</span>
           </h1>
           <p className="text-lg text-muted-foreground text-center">
             Help ensure a steady flow of life-saving blood for those who need it
@@ -46,7 +45,7 @@ export default function DashboardPage() {
                 className="w-full pl-10"
               />
             </div>
-            <Button type="submit">Search</Button> {/* Removed custom bg color to use theme */}
+            <Button type="submit">Search</Button> 
           </div>
         </section>
 

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import SignInForm from '@/components/auth/sign-in-form';
 import Logo from '@/components/auth/logo';
 
@@ -9,7 +10,9 @@ export default function SignInPage() {
       <div className="w-full lg:w-1/2 bg-background flex flex-col justify-center items-center p-6 sm:p-8 order-2 lg:order-1">
         <div className="w-full max-w-md space-y-6">
           <div className="flex justify-center lg:justify-start">
-            <Logo />
+            <Link href="/">
+              <Logo />
+            </Link>
           </div>
           <div>
             <h2 className="text-3xl font-semibold tracking-tight text-foreground">Welcome back!</h2>
@@ -23,11 +26,6 @@ export default function SignInPage() {
 
       {/* Image Section (Right on Desktop, Top on Mobile) */}
       <div className="w-full lg:w-1/2 h-64 lg:h-screen relative order-1 lg:order-2">
-        {/* 
-          Replace the src below with the path to your actual background image.
-          For example, if you place your image in 'public/images/auth-background.jpg',
-          the src should be '/images/auth-background.jpg'.
-        */}
         <Image
           src="https://placehold.co/1080x1920.png"
           alt="Decorative background image for sign-in page"
