@@ -2,6 +2,8 @@
 "use client";
 
 import type { BloodOrder } from "@/lib/types";
+import * as React from "react";
+import { useRouter } from "next/navigation";
 import {
   Table,
   TableHeader,
@@ -18,7 +20,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import * as React from "react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { cn } from "@/lib/utils";
 
 const mockOrders: BloodOrder[] = [
   {
@@ -76,16 +88,43 @@ const mockOrders: BloodOrder[] = [
     dateUploaded: "Jan 11, 2025, 09:15",
     status: "Pending",
   },
+  {
+    id: "6",
+    user: "Eko",
+    bloodType: "B+",
+    amount: "75 Unit",
+    hospital: "RS Bethesda",
+    location: "Yogyakarta",
+    distance: "2.5 km",
+    dateUploaded: "Jan 12, 2025, 14:30",
+    status: "Not Handled",
+  },
 ];
 
 export default function BloodOrderTable() {
+  const router = useRouter();
   const [filter, setFilter] = React.useState<string>("all");
-  const [searchTerm, setSearchTerm] = React.useState<string>(""); // For future use with actual search input
+  const [searchTerm, setSearchTerm] = React.useState<string>("");
+  const [isAlertOpen, setIsAlertOpen] = React.useState(false);
+  const [selectedOrder, setSelectedOrder] = React.useState<BloodOrder | null>(null);
+
+  const handleOrderClick = (order: BloodOrder) => {
+    if (order.status === "Not Handled") {
+      setSelectedOrder(order);
+      setIsAlertOpen(true);
+    }
+  };
+
+  const handleConfirmAction = () => {
+    if (selectedOrder) {
+      router.push(`/dashboard/handle-order/${selectedOrder.id}`);
+    }
+    setIsAlertOpen(false);
+  };
 
   const filteredOrders = mockOrders.filter((order) => {
     const matchesFilter =
       filter === "all" || order.status.toLowerCase().replace(" ", "-") === filter;
-    // Basic search logic (can be expanded)
     const matchesSearch =
       order.user.toLowerCase().includes(searchTerm.toLowerCase()) ||
       order.bloodType.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -135,7 +174,13 @@ export default function BloodOrderTable() {
           <TableBody>
             {filteredOrders.length > 0 ? (
               filteredOrders.map((order) => (
-                <TableRow key={order.id}>
+                <TableRow
+                  key={order.id}
+                  onClick={() => handleOrderClick(order)}
+                  className={cn(
+                    order.status === "Not Handled" && "cursor-pointer hover:bg-muted/60"
+                  )}
+                >
                   <TableCell className="font-medium">{order.user}</TableCell>
                   <TableCell>{order.bloodType}</TableCell>
                   <TableCell>{order.amount}</TableCell>
@@ -173,6 +218,25 @@ export default function BloodOrderTable() {
           </TableBody>
         </Table>
       </div>
+
+      <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Handle this request?</AlertDialogTitle>
+            <AlertDialogDescription>
+              User: {selectedOrder?.user} - {selectedOrder?.bloodType} ({selectedOrder?.amount})
+              <br />
+              Hospital: {selectedOrder?.hospital}
+              <br />
+              This action will mark the request as being processed. Are you sure you want to proceed?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setIsAlertOpen(false)}>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleConfirmAction}>Yes</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
