@@ -7,13 +7,13 @@ import { getAuth, type Auth } from "firebase/auth";
 // IMPORTANT: Replace these with your actual Firebase project configuration
 // These are placeholder values.
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
-  measurementId: "YOUR_MEASUREMENT_ID" // Optional
+  apiKey: "YOUR_API_KEY", // Replace with your API Key
+  authDomain: "YOUR_AUTH_DOMAIN", // Replace with your Auth Domain
+  projectId: "YOUR_PROJECT_ID", // Replace with your Project ID
+  storageBucket: "YOUR_STORAGE_BUCKET", // Replace with your Storage Bucket
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID", // Replace with your Messaging Sender ID
+  appId: "YOUR_APP_ID", // Replace with your App ID
+  measurementId: "YOUR_MEASUREMENT_ID" // Optional: Replace with your Measurement ID
 };
 
 // Initialize Firebase
