@@ -25,13 +25,13 @@ export default function SignInPage() {
       </div>
 
       {/* Image Section (Right on Desktop, Top on Mobile) */}
-      <div className="w-full lg:w-1/2 h-64 lg:h-screen relative order-1 lg:order-2">
+      <div className="w-full lg:w-1/2 h-64 lg:h-screen relative order-1 lg:order-2 overflow-hidden">
         <Image
-          src="https://placehold.co/1080x1920.png"
-          alt="Decorative background image for sign-in page"
+          src="/images/auth-background-dots.png"
+          alt="Decorative background image with red dots for sign-in page"
           layout="fill"
           objectFit="cover"
-          className="rounded-none lg:rounded-none"
+          className="rounded-none lg:rounded-none animate-slow-pan"
           priority
           data-ai-hint="red dots pattern"
         />
