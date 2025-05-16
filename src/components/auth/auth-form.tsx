@@ -25,6 +25,8 @@ import { createAccountAction, signUpWithAppleAction, signUpWithGoogleAction, sig
 export default function AuthForm() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = React.useState(false);
+
 
   const form = useForm<AuthFormValues>({
     resolver: zodResolver(AuthSchema),
@@ -36,15 +38,17 @@ export default function AuthForm() {
 
   async function onSubmit(values: AuthFormValues) {
     setIsSubmitting(true);
+    setShowSuccessMessage(false);
     const result = await createAccountAction(values);
     setIsSubmitting(false);
 
     if (result.success) {
       toast({
-        title: "Success",
+        title: "Success!",
         description: result.message,
       });
       form.reset();
+      setShowSuccessMessage(true); // Show success message
     } else {
       toast({
         title: "Error",
@@ -63,6 +67,7 @@ export default function AuthForm() {
         title: "Redirecting...",
         description: result.message,
       });
+      // Handle redirection if necessary, e.g., router.push('/dashboard')
     } else {
       toast({
         title: "Error",
@@ -82,7 +87,12 @@ export default function AuthForm() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="Your email" {...field} />
+                <Input 
+                  type="email" 
+                  placeholder="Your email" 
+                  {...field} 
+                  className="bg-card border-input text-card-foreground placeholder:text-muted-foreground"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -95,7 +105,12 @@ export default function AuthForm() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="Your password" {...field} />
+                <Input 
+                  type="password" 
+                  placeholder="Your password" 
+                  {...field} 
+                  className="bg-card border-input text-card-foreground placeholder:text-muted-foreground"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -106,9 +121,19 @@ export default function AuthForm() {
         </Button>
       </form>
 
+      {showSuccessMessage && (
+        <div className="mt-4 p-3 rounded-md bg-green-100 border border-green-300 text-green-700 text-sm">
+          Account created successfully! You can now{' '}
+          <Link href="/sign-in" className="font-medium text-primary hover:underline">
+            sign in
+          </Link>.
+        </div>
+      )}
+
+
       <div className="relative my-6">
         <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
+          <span className="w-full border-t border-border" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
           <span className="bg-background px-2 text-muted-foreground">
