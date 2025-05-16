@@ -42,7 +42,7 @@ const mockOrders: BloodOrder[] = [
     location: "Yogyakarta",
     distance: "2 km",
     dateUploaded: "Jan 10, 2025, 22:10",
-    status: "Handled",
+    status: "Not Handled", // Changed from "Handled"
   },
   {
     id: "2",
