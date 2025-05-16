@@ -23,13 +23,19 @@ export default function AuthPage() {
 
       {/* Image Section (Right on Desktop, Top on Mobile) */}
       <div className="w-full lg:w-1/2 h-64 lg:h-screen relative order-1 lg:order-2">
+        {/* 
+          Replace the src below with the path to your actual background image.
+          For example, if you place your image in 'public/images/auth-background.jpg',
+          the src should be '/images/auth-background.jpg'.
+        */}
         <Image
           src="https://placehold.co/1080x1920.png"
-          alt="Crowd at sunset"
+          alt="Decorative background image for authentication page"
           layout="fill"
           objectFit="cover"
           className="rounded-none lg:rounded-none"
-          data-ai-hint="crowd sunset"
+          priority
+          data-ai-hint="red dots pattern"
         />
         <div className="absolute inset-0 bg-black/30"></div>
         <div className="absolute bottom-8 left-8 text-white text-3xl md:text-4xl font-medium leading-tight">
